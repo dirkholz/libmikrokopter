@@ -1,9 +1,11 @@
 * Stuff to implement/improve
-** TODO library: create static lib by splitting declarations and definitions
-** TODO proper release: using custom on webpage
+** DONE library: create static lib by splitting declarations and definitions
+CLOSED: [2012-10-11 Thu 15:04]
+** TODO proper release: using custom webpage
 ** TODO ROS package for wrapping library
 ** TODO switch in between flightctrl and navictrl
 ** TODO get debug from both flight and navictrl
 ** TODO implement proper height/joystick control 
-** TODO change name to libmikrokopter
+** DONE change name to libmikrokopter
+CLOSED: [2012-10-11 Thu 15:04]
 ** TODO debug crc mismatches
