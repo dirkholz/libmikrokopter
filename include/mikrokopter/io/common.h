@@ -48,7 +48,7 @@
         << __PRETTY_FUNCTION__ << ": "                                  \
         << #A                                                           \
         << " = "                                                        \
-        << mikrokopter::io::removeCarriageReturns(A)                         \
+        << mikrokopter::io::removeCarriageReturns(A)                    \
         << " (";                                                        \
         for (size_t i = 0; i < A.size() + 2; ++i)                       \
         {                                                               \
@@ -63,19 +63,13 @@ namespace mikrokopter
 {
   namespace io
   {
-    inline std::string removeCarriageReturns(const std::string s)
-    {
-      std::string result(s.size(), '\0');
-      char* dst = const_cast<char*>(result.data());
-      char* str = const_cast<char*>(s.data());
-      
-      for (char* src = str; *src != '\0'; src++) {
-        *dst = *src;
-        if (*dst != '\r') dst++;
-      }
-      *dst = '\0';
-      return result;
-    }
+    /**
+     * Remove carriage returns from a string
+     * @param[in] String Input string
+     * @return Input string with carriage returns removed
+     */
+    std::string removeCarriageReturns(const std::string& s);
+    
   }
 }
 

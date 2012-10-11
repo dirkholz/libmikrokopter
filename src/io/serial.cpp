@@ -61,7 +61,7 @@ void mikrokopter::io::Serial::close()
   uart_thread_[1].join();
 }
 
-virtual int mikrokopter::io::Serial::write(const std::string& s)
+int mikrokopter::io::Serial::write(const std::string& s)
 {
   // PRINT_MESSAGE(s);
   return boost::asio::write(*port_tx_,
@@ -69,14 +69,14 @@ virtual int mikrokopter::io::Serial::write(const std::string& s)
                                                 s.size()));
 }
 
-virtual int mikrokopter::io::Serial::write(const char* message, int length)
+int mikrokopter::io::Serial::write(const char* message, int length)
 {
   return boost::asio::write(*port_tx_,
                             boost::asio::buffer(message, length));
 }
 
 
-virtual int mikrokopter::io::Serial::read(char* buffer, int max_length)
+int mikrokopter::io::Serial::read(char* buffer, int max_length)
 {
   if (!connected_)
     return 0;
@@ -95,7 +95,7 @@ virtual int mikrokopter::io::Serial::read(char* buffer, int max_length)
 }
       
 
-virtual std::string mikrokopter::io::Serial::read()
+std::string mikrokopter::io::Serial::read()
 {
   std::string message;
   if (port_rx_->is_open())

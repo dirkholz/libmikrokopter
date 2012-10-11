@@ -1,6 +1,6 @@
-#include <mikrokopter/io/commonh.h>
+#include <mikrokopter/io/common.h>
 
-std::string kopter::io::removeCarriageReturns(const std::string& s)
+std::string mikrokopter::io::removeCarriageReturns(const std::string& s)
 {
   std::string result(s.size(), '\0');
   char* dst = const_cast<char*>(result.data());

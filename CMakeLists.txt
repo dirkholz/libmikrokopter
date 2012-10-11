@@ -35,25 +35,42 @@ add_custom_target(uninstall
 find_package(Boost REQUIRED COMPONENTS thread system)
 include_directories(${BOOST_INCLUDE_DIRS})
 include_directories(${PROJECT_SOURCE_DIR}/include)
-link_libraries(${Boost_LIBRARIES} pthread)
+
+add_library(mikrokopter_io
+  src/io/common.cpp
+  src/io/console.cpp
+  src/io/serial.cpp)
+target_link_libraries(mikrokopter_io 
+  ${Boost_LIBRARIES} 
+  pthread)
+
+
 
 add_executable(test_protocol tools/test_protocol.cpp)
+target_link_libraries(test_protocol 
+  mikrokopter_io
+#  mikrokopter_protocol
+)
 add_executable(test_kopter tools/test_kopter.cpp)
+target_link_libraries(test_kopter
+  mikrokopter_io
+#  mikrokopter_protocol
+)
 
+# installation targets
 install(DIRECTORY include/ 
   DESTINATION include
   FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp")
-# install(DIRECTORY lib/ 
-#   DESTINATION lib)
+install(DIRECTORY lib/ 
+  DESTINATION lib)
 install(DIRECTORY bin/ 
   DESTINATION bin
-    FILE_PERMISSIONS
-        OWNER_READ OWNER_EXECUTE OWNER_WRITE
-        GROUP_READ GROUP_EXECUTE
-        WORLD_READ WORLD_EXECUTE
-    DIRECTORY_PERMISSIONS
-        OWNER_READ OWNER_EXECUTE OWNER_WRITE
-        GROUP_READ GROUP_EXECUTE
-        WORLD_READ WORLD_EXECUTE
-)
+  FILE_PERMISSIONS
+  OWNER_READ OWNER_EXECUTE OWNER_WRITE
+  GROUP_READ GROUP_EXECUTE
+  WORLD_READ WORLD_EXECUTE
+  DIRECTORY_PERMISSIONS
+  OWNER_READ OWNER_EXECUTE OWNER_WRITE
+  GROUP_READ GROUP_EXECUTE
+  WORLD_READ WORLD_EXECUTE)
 

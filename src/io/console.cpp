@@ -1,11 +1,11 @@
 #include <mikrokopter/io/console.h>
 
-int mikrokopter::io::iowrite(const std::string& message)
+int mikrokopter::io::Console::write(const std::string& message)
 {
   PRINT_MESSAGE(message);
 }
 
-int mikrokopter::io::write(const char* message, int length)
+int mikrokopter::io::Console::write(const char* message, int length)
 {
   printf("%s ", __PRETTY_FUNCTION__);
 
@@ -25,7 +25,7 @@ int mikrokopter::io::write(const char* message, int length)
   return length;
 }
 
-int mikrokopter::io::read(char* buffer, int max_length)
+int mikrokopter::io::Console::read(char* buffer, int max_length)
 {
   std::string line;
   std::getline(std::cin, line);
@@ -34,7 +34,7 @@ int mikrokopter::io::read(char* buffer, int max_length)
   return nr_bytes_read;
 }
 
-std::string mikrokopter::io::read()
+std::string mikrokopter::io::Console::read()
 {
   std::string line;
   std::getline(std::cin, line);

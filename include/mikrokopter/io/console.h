@@ -46,7 +46,6 @@ namespace mikrokopter
 {
   namespace io
   {
-
     /** Console IO for testing/debug purposes */
     class Console : public mikrokopter::io::IO
     {
@@ -54,50 +53,10 @@ namespace mikrokopter
      public:
       Console() {};
 
-      // inheritance of damn overladed inline function wouldn't work otherwise
-      int write(const std::string& message)
-      {
-        // std::cout << message << std::endl;
-        PRINT_MESSAGE(message);
-      }
-      
-      int write(const char* message, int length)
-      {
-        printf("%s ", __PRETTY_FUNCTION__);
-
-        // for (int i = 0; i < length; ++i)
-        //   std::cout << message[i];
-
-        std::cout << " (";
-        for (int i = 0; i < length; ++i)
-        {
-          printf("%x", message[i]);
-          if (i != length-1)
-            std::cout << ' ';
-        }
-        std::cout << ')';
-
-        std::cout << std::endl;
-        return length;
-      }
-
-      int read(char* buffer, int max_length)
-      {
-        std::string line;
-        std::getline(std::cin, line);
-        int nr_bytes_read = std::min((int)line.size(), max_length);
-        memcpy(buffer, line.data(), nr_bytes_read);
-        return nr_bytes_read;
-      }
-
-      virtual std::string read()
-      {
-        std::string line;
-        std::getline(std::cin, line);
-        return line;
-      }
-
-      
+      int write(const std::string& message);
+      int write(const char* message, int length);
+      int read(char* buffer, int max_length);
+      virtual std::string read();
     };
     
   }
