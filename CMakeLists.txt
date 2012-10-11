@@ -36,24 +36,22 @@ find_package(Boost REQUIRED COMPONENTS thread system)
 include_directories(${BOOST_INCLUDE_DIRS})
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
-add_library(mikrokopter_io
+add_library(mikrokopter
   src/io/common.cpp
   src/io/console.cpp
-  src/io/serial.cpp)
-target_link_libraries(mikrokopter_io 
+  src/io/serial.cpp
+  src/protocol/encoding.cpp
+  src/protocol/protocol.cpp
+  src/kopter.cpp)
+target_link_libraries(mikrokopter
   ${Boost_LIBRARIES} 
   pthread)
 
-add_library(mikrokopter_protocol
-  src/protocol/encoding.cpp
-  src/protocol/protocol.cpp
-)
-
 add_executable(test_protocol tools/test_protocol.cpp)
-target_link_libraries(test_protocol mikrokopter_io mikrokopter_protocol)
+target_link_libraries(test_protocol mikrokopter)
 
 add_executable(test_kopter tools/test_kopter.cpp)
-target_link_libraries(test_kopter mikrokopter_io mikrokopter_protocol)
+target_link_libraries(test_kopter mikrokopter)
 
 # installation targets
 install(DIRECTORY include/ 
