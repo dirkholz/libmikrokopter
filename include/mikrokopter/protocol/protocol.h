@@ -92,6 +92,8 @@ namespace mikrokopter
     std::string messageRequestFlightControlDebug(int interval);
     std::string messageRequestFlightControlDebugLabels(const uint8_t label_id);
 
+    std::string messageRequestNaviControlDebug(int interval);
+    
     mikrokopter::protocol::VersionInfo getVersionInfo(const char* data, int length);
   }
 

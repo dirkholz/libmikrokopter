@@ -127,6 +127,12 @@ std::string mikrokopter::protocol::messageRequestFlightControlDebugLabels(const 
   return createMessage('a', mikrokopter::protocol::ADDRESS_BROADCAST, label_id);
 }
 
+std::string mikrokopter::protocol::messageRequestNaviControlDebug(int interval)
+{
+  uint8_t value = ((interval / 10) & 0xFF);
+  return createMessage('o', mikrokopter::protocol::ADDRESS_NAVI_CTRL, value);
+}
+    
 
 mikrokopter::protocol::VersionInfo mikrokopter::protocol::getVersionInfo(const char* data, int length)
 {

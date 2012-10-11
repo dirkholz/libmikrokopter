@@ -121,34 +121,6 @@ namespace mikrokopter
     const unsigned int DEBUG_LABEL_LENGTH = 16;
     typedef std::string FlightControlDebugDataLabels[32];
 
-    // std::ostream & operator<<(std::ostream &os, const FlightControlDebugData& p)
-    // {
-    //   DEBUG_PRINT_VARIABLE(os, p.integrated_nick);
-    //   DEBUG_PRINT_VARIABLE(os, p.integrated_roll);
-    //   DEBUG_PRINT_VARIABLE(os, p.mean_acceleration_nick);
-    //   DEBUG_PRINT_VARIABLE(os, p.mean_acceleration_roll);
-    //   DEBUG_PRINT_VARIABLE(os, p.yaw);
-    //   DEBUG_PRINT_VARIABLE(os, p.height);
-    //   DEBUG_PRINT_VARIABLE(os, p.acceleration_up);
-    //   DEBUG_PRINT_VARIABLE(os, p.gas);
-    //   DEBUG_PRINT_VARIABLE(os, p.compass);
-    //   DEBUG_PRINT_VARIABLE(os, p.battery_voltage);
-    //   DEBUG_PRINT_VARIABLE(os, p.sensor_ok);
-    //   DEBUG_PRINT_VARIABLE(os, p.backup_compass_deg);
-    //   DEBUG_PRINT_VARIABLE(os, p.motor_set_points[0]);
-    //   DEBUG_PRINT_VARIABLE(os, p.motor_set_points[1]);
-    //   DEBUG_PRINT_VARIABLE(os, p.motor_set_points[2]);
-    //   DEBUG_PRINT_VARIABLE(os, p.motor_set_points[3]);
-    //   DEBUG_PRINT_VARIABLE(os, p.servo_nick);
-    //   DEBUG_PRINT_VARIABLE(os, p.current);
-    //   DEBUG_PRINT_VARIABLE(os, p.capacity_used);
-    //   DEBUG_PRINT_VARIABLE(os, p.height_set_point);
-    //   DEBUG_PRINT_VARIABLE(os, p.compass_set_point);
-    //   DEBUG_PRINT_VARIABLE(os, p.capacity_min_of_max_pwm);
-    //   DEBUG_PRINT_VARIABLE(os, p.gps_nick);
-    //   DEBUG_PRINT_VARIABLE(os, p.gps_roll);
-    // }
-
     /**
      * \brief FlightCtrl / NaviCtrl / MK3MAG version
      * \note copied from FlightCtrl/uart.h:88

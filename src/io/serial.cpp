@@ -137,7 +137,7 @@ void mikrokopter::io::Serial::callbackMessageRX(
   std::string s;
   is >> s;
 
-  // PRINT_MESSAGE(s);
+  PRINT_MESSAGE(s);
 
   // reset deadline timeout and restart reading RX
   if (error != boost::asio::error::operation_aborted)

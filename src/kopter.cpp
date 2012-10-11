@@ -11,17 +11,8 @@ mikrokopter::Kopter::Kopter(mikrokopter::io::IO::Ptr& comm)
 
 bool mikrokopter::Kopter::connectNaviCtrl()
 {
-
-  char data[6];
-  data[0] = 27;
-  data[1] = 27;
-  data[2] = 85;
-  data[3] = -86;
-  data[4] = '\r';
-  data[5] = '\0';
+  char data[] = {0x1B,0x1B,0x55,0xAA,0x00};
   comm_->write(data, sizeof(data));
-
-  // comm_->write(mikrokopter::protocol::messageSelectNaviCtrl());
   getVersionInfoBlocking();
   return (address_ == mikrokopter::protocol::ADDRESS_NAVI_CTRL);
 }
@@ -72,7 +63,7 @@ void mikrokopter::Kopter::parseMessage(const std::string& message)
                                                    length);
   if (!valid)
   {
-    std::cerr << __PRETTY_FUNCTION__ << ": CRC mismatch:" << message << "!\n";
+    std::cerr << __PRETTY_FUNCTION__ << ": \033[1;31mCRC mismatch\033[0m in \033[33m" << message << "\033[0m!\n";
     return;
   }
 
@@ -97,18 +88,17 @@ void mikrokopter::Kopter::parseMessage(const std::string& message)
   address_ = address;
   switch (command)
   {
- case 'V': // VERSION reply
-   processVersionInfo(command, address, buffer, length);
-   break;
- case 'D': // Debug data (continuously sent (requested interval)
-   interval_flight_control_debug_.update(timer_flight_control_debug_.getTime());
-   timer_flight_control_debug_.reset();
-   processFlightControlDebugData(command, address, buffer, length);
-   break;
- case 'A': // label for debug data
-   processFlightControlDebugDataLabels(command, address, buffer, length);
-   break;
-       
+    case 'V': // VERSION reply
+      processVersionInfo(command, address, buffer, length);
+      break;
+    case 'D': // Debug data (continuously sent (requested interval)
+      interval_flight_control_debug_.update(timer_flight_control_debug_.getTime());
+      timer_flight_control_debug_.reset();
+      processFlightControlDebugData(command, address, buffer, length);
+      break;
+    case 'A': // label for debug data
+      processFlightControlDebugDataLabels(command, address, buffer, length);
+      break;
   }
 }
 
@@ -130,6 +120,12 @@ void mikrokopter::Kopter::requestDebugData(int interval)
 void mikrokopter::Kopter::requestDebugDataLabel(const uint8_t& id)
 {
   comm_->write(mikrokopter::protocol::messageRequestFlightControlDebugLabels(id));
+}
+
+void mikrokopter::Kopter::requestNaviData(int interval)
+{
+  debug_request_interval_ = std::max(interval, 10);
+  comm_->write(mikrokopter::protocol::messageRequestNaviControlDebug(debug_request_interval_));
 }
 
 
@@ -248,4 +244,13 @@ void mikrokopter::Kopter::initialize()
   resetVersionInfo();
 
   resetDebugData();
+}
+
+void processNaviData(const char& command,
+                     const int& address,
+                     const char* data,
+                     const int length,
+                     mikrokopter::protocol::NaviData& navi_data)
+{
+  memcpy(&navi_data, data, sizeof(navi_data));
 }

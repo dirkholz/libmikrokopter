@@ -49,22 +49,30 @@ namespace mikrokopter
     Kopter(mikrokopter::io::IO::Ptr& comm);
     
     bool connectNaviCtrl();    
-
+    
     bool connectFlightCtrl();
     
     bool connectMK3MAG();
-
+    
     void getVersionInfoBlocking();
-
+    
     void parseMessage(const std::string& message);
     
     inline mikrokopter::io::IO::Ptr getComm() { return comm_; }
-
+    
     void sendExternalControl(const mikrokopter::protocol::ExternControl& control);
-
+    
+    /**
+     * request debug data from FlightCtrl
+     */
     void requestDebugData(int interval);
 
     void requestDebugDataLabel(const uint8_t& id);
+
+    /**
+     * request debug data from NaviCtrl
+     */
+    void requestNaviData(int interval);
     
     void requestDebugDataLabels();
 
@@ -123,6 +131,14 @@ namespace mikrokopter
 
     void initialize();
 
+
+    void processNaviData(const char& command,
+                         const int& address,
+                         const char* data,
+                         const int length,
+                         mikrokopter::protocol::NaviData& navi_data);
+    
+    
   };
 }
                 

@@ -4,9 +4,82 @@ CLOSED: [2012-10-11 Thu 15:04]
 ** TODO proper release: using custom webpage
 ** DONE ROS package for wrapping library
 CLOSED: [2012-10-11 Thu 15:09]
-** TODO switch between flightctrl and navictrl
+** DONE switch between flightctrl and navictrl
+CLOSED: [2012-10-11 Thu 16:04]
 ** TODO get debug from both flight and navictrl
 ** TODO implement proper height/joystick control 
 ** DONE change name to libmikrokopter
 CLOSED: [2012-10-11 Thu 15:04]
 ** TODO debug crc mismatches
+
+
+
+* NaviCtrl DebugOutput
+AngleNick            4
+AngleRoll            7
+AccNick              0
+AccRoll              0
+OperatingRadius      0
+FC-Flags             192
+NC-Flags             4
+NickServo            0
+RollServo            0
+GPS Data             8153
+CompassHeading       266
+GyroHeading          267
+SPI Error            0
+SPI Okay             -25782
+I2C Error            0
+I2C Okay             15240
+16                   0
+17                   0
+18                   0
+19                   0
+EarthMagnet [%]      102
+Z_Speed              0
+N_Speed              0
+E_Speed            0
+Magnet X             117
+Magnet Y             28
+Magnet Z             -123
+Distance N           0
+Distance E           0
+GPS_Nick             0
+GPS_Roll             0
+Used_Sats            0
+
+
+* FlightCtrl DebugOutput
+Update Interval: 17.3333ms.
+AngleNick            4
+AngleRoll            8
+AccNick              0
+AccRoll              0
+YawGyro              1
+Height Value         4
+AccZ                 0
+Gas                  412
+Compass Value        263
+Voltage [0.1V]       203
+Receiver Level       0
+Gyro Compass         267
+Motor 1              0
+Motor 2              0
+Motor 3              0
+Motor 4              0
+16                   0
+17                   0
+18                   0
+19                   0
+Servo                506
+Hovergas             0
+Current [0.1A]       5
+Capacity [mAh]       231
+Height Setpoint      4
+25                   0
+26                   0
+Compass Setpoint     -1
+I2C-Error            0
+BL Limit             250
+GPS_Nick             0
+GPS_Roll             0
