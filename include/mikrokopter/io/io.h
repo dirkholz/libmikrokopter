@@ -46,7 +46,6 @@ namespace mikrokopter
 {
   namespace io
   {
-
     /** Abstract interface and base class for IO functionality */
     class IO
     {
@@ -78,7 +77,6 @@ namespace mikrokopter
         return write(message.data(), message.size());
       }
 
-
       /**
        * Input: read message
        * @param[out] buffer to fill with read message
@@ -87,24 +85,30 @@ namespace mikrokopter
        */
       virtual int read(char* buffer, int max_length) = 0;
 
+      /**
+       * Input: Read message as string.
+       * @return Read string
+       */
       virtual std::string read() = 0;
 
-      
+      /**
+       * Register a callback for those IO classes that support asynchronous reading
+       * @param[in] cb Function to register
+       */
       void registerCallback(CallbackType cb)
       {
         registerd_callback_ = cb;
       }
 
      protected:
-      
+
+      CallbackType registerd_callback_;
+
+      /** Default function used when no callback is registered */
       virtual void defaultCallback(const std::string& s)
       {
         PRINT_MESSAGE(s);
       }
-      
-      CallbackType registerd_callback_;
-      
-
 
     };
     
