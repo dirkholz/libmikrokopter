@@ -44,18 +44,16 @@ target_link_libraries(mikrokopter_io
   ${Boost_LIBRARIES} 
   pthread)
 
-
+add_library(mikrokopter_protocol
+  src/protocol/encoding.cpp
+  src/protocol/protocol.cpp
+)
 
 add_executable(test_protocol tools/test_protocol.cpp)
-target_link_libraries(test_protocol 
-  mikrokopter_io
-#  mikrokopter_protocol
-)
+target_link_libraries(test_protocol mikrokopter_io mikrokopter_protocol)
+
 add_executable(test_kopter tools/test_kopter.cpp)
-target_link_libraries(test_kopter
-  mikrokopter_io
-#  mikrokopter_protocol
-)
+target_link_libraries(test_kopter mikrokopter_io mikrokopter_protocol)
 
 # installation targets
 install(DIRECTORY include/ 

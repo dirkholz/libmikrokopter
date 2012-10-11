@@ -24,6 +24,7 @@
 #ifndef KOPTER_PROTOCOL_DATA_TYPES_H_
 #define KOPTER_PROTOCOL_DATA_TYPES_H_
 
+#include <string>
 #include <stdint.h>
 
 #define DEBUG_PRINT_VARIABLE(A, B) A << #B << " :\t\t\t" << B << std::endl;

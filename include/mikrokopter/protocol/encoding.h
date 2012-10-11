@@ -24,6 +24,8 @@
 #ifndef KOPTER_PROTOCOL_ENCODING_H_
 #define KOPTER_PROTOCOL_ENCODING_H_
 
+#include <string>
+
 #define b64_decode_len(A) (A / 4 * 3 + 2)
 #define b64_encode_len(A) ((A+2)/3 * 4 + 1)
 
@@ -32,67 +34,29 @@ namespace mikrokopter
   namespace protocol
   {
 
-    int encode64(char* dest, const char* source, size_t len)
-    {
-      if (source == NULL)
-        return 0;
+    /**
+     * Base64 encoding of a given byte string
+     * @param[out] dest Destination character array to write
+     * @param[in] source Character array to be encoded
+     * @param[in] length of input character array
+     * @return number of bytes in encoded byte string (\a dest)
+     */
+    int encode64(char* dest, const char* source, size_t len);
 
-      int ptr = 0, pt = 0;
-      while(len > 0)
-      {
-        unsigned char a = 0, b = 0, c = 0;
-        if(len) { a = source[ptr++]; len--;}
-        if(len) { b = source[ptr++]; len--;}
-        if(len) { c = source[ptr++]; len--;}
+    /**
+     * Base64 decoding of a given encoded byte string
+     * @param[out] dest Destination character array to write
+     * @param[in] source Character array to be decoded
+     * @param[in] length of encoded character array
+     * @return number of bytes in decoded byte string (\a dest)
+     */
+    int decode64(char* dest, const char* source, size_t len);
 
-        dest[pt++] = '=' + (a >> 2);
-        dest[pt++] = '=' + (((a & 0x03) << 4) | ((b & 0xf0) >> 4));
-        dest[pt++] = '=' + (((b & 0x0f) << 2) | ((c & 0xc0) >> 6));
-        dest[pt++] = '=' + ( c & 0x3f);
-      }
+    /** Base 64 encode a given character string into a string */
+    std::string encode64(const char* s, size_t length);
 
-      return ptr;
-    }
-
-    int decode64(char* dest, const char* source, size_t len)
-    {
-      if (source == NULL)
-        return 0;
-
-      int offset = 0, ptr = 0;
-      while(len != 0)
-      {
-        const unsigned char a = source[offset++] - '=';
-        const unsigned char b = source[offset++] - '=';
-        const unsigned char c = source[offset++] - '=';
-        const unsigned char d = source[offset++] - '=';
-
-        const unsigned char x = (a << 2) | (b >> 4);
-        const unsigned char y = ((b & 0x0f) << 4) | (c >> 2);
-        const unsigned char z = ((c & 0x03) << 6) | d;
-
-        if(len--) dest[ptr++] = x; else break;
-        if(len--) dest[ptr++] = y; else break;
-        if(len--) dest[ptr++] = z; else break;
-      }
-
-      return ptr;
-    }
-
-
-    std::string encode64(const char* s, size_t length)
-    {
-      std::string x(b64_encode_len(length), '\0');
-      encode64(const_cast<char*>(x.data()), s, length);
-      return x;
-    }
-
-    inline std::string encode64(const std::string & s)
-    {
-      return encode64(s.data(), s.size());
-    }
-
-
+    /** Base 64 encode a given string into a string */
+    std::string encode64(const std::string & s);
   }
 }
 
