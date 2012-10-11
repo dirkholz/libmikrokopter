@@ -5,7 +5,6 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin) 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib) 
 
-# note: for some reason CPACK has to be run twice for proper package generation
 set(CPACK_GENERATOR "DEB")
 set(CPACK_SOURCE_GENERATOR "TGZ")
 set(CPACK_PACKAGE_VERSION_MAJOR 0)
@@ -13,15 +12,9 @@ set(CPACK_PACKAGE_VERSION_MINOR 1)
 set(CPACK_PACKAGE_VERSION_PATCH 0)
 set(CPACK_PACKAGE_CONTACT "Dirk Holz <dirk.holz@ieee.org>")
 set(CPACK_SOURCE_IGNORE_FILES "${CPACK_SOURCE_IGNORE_FILES};${CMAKE_SOURCE_DIR}/.git;${CMAKE_BINARY_DIR}/*")
-# if(DEFINED CMAKE_LIBRARY_OUTPUT_DIRECTORY)
-#   set(CPACK_SOURCE_IGNORE_FILES "${CPACK_SOURCE_IGNORE_FILES};${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/*")
-# endif()
-if(DEFINED CMAKE_RUNTIME_OUTPUT_DIRECTORY)
-  set(CPACK_SOURCE_IGNORE_FILES "${CPACK_SOURCE_IGNORE_FILES};${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/*")
-endif()
-# if(DEFINED CMAKE_ARCHIVE_OUTPUT_DIRECTORY)
-#   set(CPACK_SOURCE_IGNORE_FILES "${CPACK_SOURCE_IGNORE_FILES};${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/*")
-# endif()
+set(CPACK_SOURCE_IGNORE_FILES "${CPACK_SOURCE_IGNORE_FILES};${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/*")
+set(CPACK_SOURCE_IGNORE_FILES "${CPACK_SOURCE_IGNORE_FILES};${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/*")
+set(CPACK_SOURCE_IGNORE_FILES "${CPACK_SOURCE_IGNORE_FILES};${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/*")
 include(CPack)
 
 # add custom 'uninstall' for convenience, for undoing the effects of 'sudo make install'
@@ -43,9 +36,7 @@ add_library(mikrokopter
   src/protocol/encoding.cpp
   src/protocol/protocol.cpp
   src/kopter.cpp)
-target_link_libraries(mikrokopter
-  ${Boost_LIBRARIES} 
-  pthread)
+target_link_libraries(mikrokopter ${Boost_LIBRARIES} pthread)
 
 add_executable(test_protocol tools/test_protocol.cpp)
 target_link_libraries(test_protocol mikrokopter)
@@ -54,13 +45,10 @@ add_executable(test_kopter tools/test_kopter.cpp)
 target_link_libraries(test_kopter mikrokopter)
 
 # installation targets
-install(DIRECTORY include/ 
-  DESTINATION include
+install(DIRECTORY include/ DESTINATION include
   FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp")
-install(DIRECTORY lib/ 
-  DESTINATION lib)
-install(DIRECTORY bin/ 
-  DESTINATION bin
+install(DIRECTORY lib/ DESTINATION lib)
+install(DIRECTORY bin/ DESTINATION bin
   FILE_PERMISSIONS
   OWNER_READ OWNER_EXECUTE OWNER_WRITE
   GROUP_READ GROUP_EXECUTE
