@@ -30,6 +30,7 @@ include_directories(${BOOST_INCLUDE_DIRS})
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
 add_library(mikrokopter
+  src/common/time.cpp
   src/io/common.cpp
   src/io/console.cpp
   src/io/serial.cpp
