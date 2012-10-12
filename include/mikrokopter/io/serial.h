@@ -76,8 +76,6 @@ namespace mikrokopter
       virtual int read(char* buffer, int max_length);
       virtual std::string read();
 
-      int DEBUG_LEVEL;
-      
      private:
 
       typedef boost::asio::serial_port SerialPort;
