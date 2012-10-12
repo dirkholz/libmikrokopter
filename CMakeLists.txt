@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 2.8)
 project(libmikrokopter)
 
+set(CMAKE_BUILD_TYPE RelWithDebInfo)
+# set(CMAKE_CXX_FLAGS "-pedantic -Wno-variadic-macros -Weffc++ -Wno-long-long")
+# set(CMAKE_CXX_FLAGS "-Wno-variadic-macros -Weffc++ -Wno-long-long")
+set(CMAKE_CXX_FLAGS "-W -Wall -Wno-unused-parameter")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib) 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin) 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib) 

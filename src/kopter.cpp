@@ -86,18 +86,50 @@ void mikrokopter::Kopter::parseMessage(const std::string& message)
   }
       
   address_ = address;
-  switch (command)
+  switch (address)
   {
-    case 'V': // VERSION reply
-      processVersionInfo(command, address, buffer, length);
+    case mikrokopter::protocol::ADDRESS_FLIGHT_CTRL:
+      switch (command)
+      {
+        case 'V': // VERSION reply
+          processVersionInfo(command, address, buffer, length);
+          break;
+        case 'D': // Debug data (continuously sent (requested interval)
+          interval_flight_control_debug_.update(timer_flight_control_debug_.getTime());
+          timer_flight_control_debug_.reset();
+          processFlightControlDebugData(command, address, buffer, length);
+          break;
+        case 'A': // label for debug data
+          processFlightControlDebugDataLabels(command, address, buffer, length);
+          break;
+        default: // COMMAND NOT HANDLED!
+          break;
+      }
       break;
-    case 'D': // Debug data (continuously sent (requested interval)
-      interval_flight_control_debug_.update(timer_flight_control_debug_.getTime());
-      timer_flight_control_debug_.reset();
-      processFlightControlDebugData(command, address, buffer, length);
+    case mikrokopter::protocol::ADDRESS_NAVI_CTRL:
+      switch (command)
+      {
+        case 'V': // VERSION reply
+          processVersionInfo(command, address, buffer, length);
+          break;
+        case 'D': // Debug data (continuously sent (requested interval)
+          // TODO: should be some explicit NaviCtrl althought it would do the same!
+          interval_flight_control_debug_.update(timer_flight_control_debug_.getTime());
+          timer_flight_control_debug_.reset();
+          processFlightControlDebugData(command, address, buffer, length);
+          break;
+        case 'A': // label for debug data
+          // TODO: should be some explicit NaviCtrl althought it would do the same!
+          processFlightControlDebugDataLabels(command, address, buffer, length);
+          break;
+        case 'O': // NaviData
+          // processNaviData
+          break;
+        default: // COMMAND NOT HANDLED!
+          break;
+      }
       break;
-    case 'A': // label for debug data
-      processFlightControlDebugDataLabels(command, address, buffer, length);
+    default: // ADDRESS NOT HANDLED!
       break;
   }
 }

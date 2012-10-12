@@ -52,7 +52,8 @@ namespace mikrokopter
 
       /** Empty constructor */
       IO()
-          : registerd_callback_(boost::bind(&mikrokopter::io::IO::defaultCallback, this, _1))
+          : DEBUG_LEVEL(0)
+          , registerd_callback_(boost::bind(&mikrokopter::io::IO::defaultCallback, this, _1))
       {};
      
       /**
@@ -95,6 +96,9 @@ namespace mikrokopter
       {
         registerd_callback_ = cb;
       }
+
+
+      int DEBUG_LEVEL; // no debug output
 
      protected:
 

@@ -102,7 +102,7 @@ namespace mikrokopter
           // DebugOut.Analog[14] = Motor[2].SetPoint;
           // DebugOut.Analog[15] = Motor[3].SetPoint;
           int16_t unused[5];                // !!! [16] [17] [18] [19] are commented out or not used at all in the FLightCtrl sources
-          int16_t servo_nick;              // DebugOut.Analog[20] = ServoNickValue;\
+          int16_t servo_nick;              // DebugOut.Analog[20] = ServoNickValue; 
           int16_t hover_gas;               // !!! [21] ./fc.c:1396: DebugOut.Analog[21] = HoverGas;
           int16_t current;                 // DebugOut.Analog[22] = Capacity.ActualCurrent;
           int16_t capacity_used;           // DebugOut.Analog[23] = Capacity.UsedCapacity;

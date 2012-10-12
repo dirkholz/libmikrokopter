@@ -13,6 +13,8 @@ int main(int argc, char** argv)
 
   mikrokopter::io::Serial::Ptr comm(new mikrokopter::io::Serial);
   bool connected = comm->connect(port, port, 57600);
+  if (!connected)
+    exit(1);
   
   comm->write(mikrokopter::protocol::messageSelectNaviCtrl());
   comm->write(mikrokopter::protocol::createMessage('v', 0));

@@ -63,7 +63,8 @@ void mikrokopter::io::Serial::close()
 
 int mikrokopter::io::Serial::write(const std::string& s)
 {
-  // PRINT_MESSAGE(s);
+  if (DEBUG_LEVEL != 0)
+    PRINT_MESSAGE(s);
   return boost::asio::write(*port_tx_,
                             boost::asio::buffer(s.c_str(),
                                                 s.size()));
@@ -87,7 +88,9 @@ int mikrokopter::io::Serial::read(char* buffer, int max_length)
   std::istream is(&stream_buffer_);
   std::string s;
   is >> s;
-  PRINT_MESSAGE(s);
+
+  if (DEBUG_LEVEL != 0)
+    PRINT_MESSAGE(s);
         
   int bytes_read = std::min(max_length, (int)s.size());
   memcpy(buffer, s.c_str(), bytes_read);
@@ -105,7 +108,9 @@ std::string mikrokopter::io::Serial::read()
                             message_termination_character_);
     std::istream is(&stream_buffer_);
     is >> message;
-    PRINT_MESSAGE(message);
+
+    if (DEBUG_LEVEL != 0)
+      PRINT_MESSAGE(message);
   }
   return message;
 }
@@ -137,7 +142,8 @@ void mikrokopter::io::Serial::callbackMessageRX(
   std::string s;
   is >> s;
 
-  PRINT_MESSAGE(s);
+  if (DEBUG_LEVEL != 0)
+    PRINT_MESSAGE(s);
 
   // reset deadline timeout and restart reading RX
   if (error != boost::asio::error::operation_aborted)

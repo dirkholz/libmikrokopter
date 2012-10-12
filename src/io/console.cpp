@@ -3,6 +3,7 @@
 int mikrokopter::io::Console::write(const std::string& message)
 {
   PRINT_MESSAGE(message);
+  return (int)message.size();
 }
 
 int mikrokopter::io::Console::write(const char* message, int length)
