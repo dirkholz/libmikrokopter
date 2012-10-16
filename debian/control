@@ -2,7 +2,7 @@ Source: libmikrokopter
 Section: devel
 Priority: optional
 Maintainer: Dirk Holz <holz@ais.uni-bonn.de>
-Build-Depends: cmake, build-essential
+Build-Depends: cmake, build-essential, libboost-dev
 Homepage: http://www.yourhomepage.org
 
 Package: libmikrokopter
