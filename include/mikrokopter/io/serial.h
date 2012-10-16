@@ -82,17 +82,17 @@ namespace mikrokopter
       typedef boost::shared_ptr<SerialPort> SerialPortPtr;
       SerialPortPtr port_rx_;
       SerialPortPtr port_tx_;
+      std::string port_rx_name_;
+      std::string port_tx_name_;
       boost::asio::io_service uart_service_;
+      boost::asio::streambuf stream_buffer_;
       boost::asio::deadline_timer rx_timeout_;
       int rx_timeout_deadline_;
       std::string message_termination_character_;
       bool connected_;
 
       boost::thread uart_thread_[2];
-      std::string port_rx_name_;
-      std::string port_tx_name_;
 
-      boost::asio::streambuf stream_buffer_;
 
       /** start asynchronous reading */
       void startReadingRX();

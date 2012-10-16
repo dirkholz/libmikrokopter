@@ -49,7 +49,7 @@ namespace mikrokopter
     const int ADDRESS_MK3MAG = 3;
     const int ADDRESS_BL_CTRL = 5;
 
-    const char MSG_SELECT_NAVI_CTRL   [] = { 0x1B, 0x1B, 0x55, 0xAA, '\r', '\0' };
+    const char MSG_SELECT_NAVI_CTRL [] = {0x1B, 0x1B, 0x55, 0xAA, 0x00};
 
     /**
      * External control data (e.g., for communication over serial line).
@@ -63,8 +63,14 @@ namespace mikrokopter
     struct ExternControl // FLIGHT_CTRL
     {
       ExternControl()
-          : config(0){}
-      unsigned char digital[2];
+          : digital_0(0), digital_1(0)
+          , remote_buttons(0)
+          , pitch(0), roll(0), yaw(0)
+          , gas(0), height(0)
+          , free(0), request_acknowledgement(0)
+          , config(0){}
+      unsigned char digital_0;
+      unsigned char digital_1;
       unsigned char remote_buttons;
       signed char   pitch;
       signed char   roll;
@@ -113,7 +119,7 @@ namespace mikrokopter
           int16_t capacity_min_of_max_pwm; // DebugOut.Analog[29] = Capacity.MinOfMaxPWM;
           int16_t gps_nick;                // DebugOut.Analog[30] = GPS_Nick;
           int16_t gps_roll;                // DebugOut.Analog[31] = GPS_Roll;
-        } __attribute__((packed));
+        } fc_debug __attribute__((packed));
       } __attribute__((packed));
     } __attribute__((packed));
 

@@ -52,7 +52,7 @@
           if (i < A.size())                                             \
             printf(" ");                                                \
         }                                                               \
-        printf("), %zu bytes\n", A.size());                             \
+        printf("), %u bytes\n", A.size());                             \
   }
 
 namespace mikrokopter

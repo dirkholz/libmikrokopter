@@ -93,9 +93,18 @@ namespace mikrokopter
    protected:
 
     mikrokopter::io::IO::Ptr comm_;
-
     mikrokopter::protocol::VersionInfo version_info_;
     int address_;
+    int debug_request_interval_;
+
+    FlightControlDebugDataCallbackType registered_flight_control_callback_;
+    mikrokopter::common::StopWatch timer_flight_control_debug_;
+    mikrokopter::common::RunningAverage<double, 3> interval_flight_control_debug_;
+    mikrokopter::common::StopWatch stopwatch_debug_request_;
+
+    mikrokopter::protocol::FlightControlDebugData flight_control_debug_data_;
+    mikrokopter::protocol::FlightControlDebugDataLabels flight_control_debug_data_labels_;
+
     void processVersionInfo(const char& command,
                             const int& address,
                             const char* data,
@@ -104,26 +113,18 @@ namespace mikrokopter
     bool isValidVersionInfo();
 
     
-    FlightControlDebugDataCallbackType registered_flight_control_callback_;
-    mikrokopter::common::StopWatch timer_flight_control_debug_;
-    mikrokopter::common::RunningAverage<double, 3> interval_flight_control_debug_;
-    mikrokopter::protocol::FlightControlDebugData flight_control_debug_data_;
-    int debug_request_interval_;
-    mikrokopter::common::StopWatch stopwatch_debug_request_;
     void processFlightControlDebugData(const char& command,
                                        const int& address,
                                        const char* data,
                                        const int length);
-    
-    mikrokopter::protocol::FlightControlDebugDataLabels flight_control_debug_data_labels_;
     void processFlightControlDebugDataLabels(const char& command,
                                              const int& address,
                                              const char* data,
                                              const int length);
-        
     void printFlightControlDebugData(
         const mikrokopter::protocol::FlightControlDebugData& debug_data,
         const mikrokopter::protocol::FlightControlDebugDataLabels& debug_labels);
+
 
     bool isValidDebugLabel(const std::string& label);
     

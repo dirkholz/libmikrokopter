@@ -3,7 +3,8 @@
 mikrokopter::io::Serial::Serial(
     const std::string& port,
     const int& baudrate)
-    : rx_timeout_(uart_service_)
+    : port_rx_(), port_tx_(), port_rx_name_(), port_tx_name_(), uart_service_(), stream_buffer_()
+    , rx_timeout_(uart_service_)
     , rx_timeout_deadline_(2500) // in ms
     , message_termination_character_("\r\0")
     , connected_(false)

@@ -13,6 +13,10 @@ bool mikrokopter::Kopter::connectNaviCtrl()
 {
   char data[] = {0x1B,0x1B,0x55,0xAA,0x00};
   comm_->write(data, sizeof(data));
+
+  // comm_->write(mikrokopter::protocol::MSG_SELECT_NAVI_CTRL,
+  //              sizeof(mikrokopter::protocol::MSG_SELECT_NAVI_CTRL));
+
   getVersionInfoBlocking();
   return (address_ == mikrokopter::protocol::ADDRESS_NAVI_CTRL);
 }

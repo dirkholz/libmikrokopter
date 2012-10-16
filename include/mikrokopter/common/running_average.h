@@ -14,13 +14,13 @@ namespace mikrokopter
      public:
       RunningAverage() : buffer_(window_size) {}
       
-      virtual double update(const T& data)
+      inline double update(const T& data)
       {
         buffer_.push_back(data);
         return getAverage();
       }
       
-      double getAverage()
+      inline double getAverage()
       {
         if (buffer_.empty()) return 0;
         T sum = 0;

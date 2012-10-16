@@ -10,7 +10,8 @@ namespace mikrokopter {
     {
      public:
       StopWatch();
-
+      virtual ~StopWatch(){};
+      
       double getTime();
       double getTimeSeconds();
       void reset();

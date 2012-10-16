@@ -1,0 +1,14 @@
+Source: libmikrokopter
+Section: devel
+Priority: optional
+Maintainer: Dirk Holz <holz@ais.uni-bonn.de>
+Build-Depends: cmake, build-essential
+Homepage: http://www.yourhomepage.org
+
+Package: libmikrokopter
+Architecture: any
+Depends: 
+Description: libmikrokopter
+ For communication with Mikrokopter copters 
+ (including debug data, navigation data, and 
+ extern control commands)

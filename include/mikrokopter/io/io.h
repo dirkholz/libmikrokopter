@@ -55,7 +55,9 @@ namespace mikrokopter
           : DEBUG_LEVEL(0)
           , registerd_callback_(boost::bind(&mikrokopter::io::IO::defaultCallback, this, _1))
       {};
-     
+
+      virtual ~IO(){}
+      
       /**
        * Output: write message
        * @param[in] message Message to write
