@@ -88,7 +88,8 @@ int mikrokopter::io::Serial::read(char* buffer, int max_length)
                           message_termination_character_);
   std::istream is(&stream_buffer_);
   std::string s;
-  is >> s;
+  // is >> s;
+  std::getline(is, s); // hack, for a real solution we need to read until deliminiter
 
   if (DEBUG_LEVEL != 0)
     PRINT_MESSAGE(s);
