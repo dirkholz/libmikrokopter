@@ -88,8 +88,7 @@ int mikrokopter::io::Serial::read(char* buffer, int max_length)
                           message_termination_character_);
   std::istream is(&stream_buffer_);
   std::string s;
-  // is >> s;
-  std::getline(is, s); // hack, for a real solution we need to read until deliminiter
+  is >> s;
 
   if (DEBUG_LEVEL != 0)
     PRINT_MESSAGE(s);
@@ -143,6 +142,11 @@ void mikrokopter::io::Serial::callbackMessageRX(
   std::istream is(&stream_buffer_);
   std::string s;
   is >> s;
+
+  // HACK
+  // std::getline(is, s); // hack, for a real solution we need to read until deliminiter
+  // s = mikrokopter::io::removeCarriageReturns(s);
+  // s.resize(s.size()-1);
 
   if (DEBUG_LEVEL != 0)
     PRINT_MESSAGE(s);

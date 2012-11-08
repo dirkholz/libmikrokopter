@@ -13,12 +13,12 @@ int main(int argc, char** argv)
     mikrokopter::io::IO::Ptr comm(new mikrokopter::io::Serial(port));
     // mikrokopter::io::IO::Ptr comm(new mikrokopter::io::Console());
     mikrokopter::Kopter kopter(comm);
+
+    // comm->DEBUG_LEVEL = 1;
     
-    kopter.connectNaviCtrl();
-    // kopter.connectFlightCtrl();
-
+    // kopter.connectNaviCtrl();
+    kopter.connectFlightCtrl();
     // kopter.connectMK3MAG();
-
     // kopter.connectFlightCtrl();
 
     /*
@@ -37,11 +37,11 @@ int main(int argc, char** argv)
     {
       kopter.sendExternalControl(control);
 
-      const int debug_request_interval = 100;
+      const int debug_request_interval = 50;
       DO_EVERY(1, kopter.requestDebugData(debug_request_interval));
       DO_EVERY(1, kopter.requestNaviData(debug_request_interval));
 
-      // DO_EVERY(0.1, kopter.printFlightControlDebugData());
+      DO_EVERY(0.1, kopter.printFlightControlDebugData());
 
       boost::this_thread::sleep(boost::posix_time::milliseconds(debug_request_interval));
     }
