@@ -1,4 +1,5 @@
 #include <mikrokopter/kopter.h>
+#include <mikrokopter/io/console.h>
 #include <mikrokopter/io/serial.h>
 #include <mikrokopter/common/time.h>
 

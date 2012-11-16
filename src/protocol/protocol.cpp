@@ -85,7 +85,7 @@ std::string mikrokopter::protocol::messageSelectFlightCtrl()
 
 std::string mikrokopter::protocol::messageSelectMK3MAG()
 {
-  return createMessage('u', ADDRESS_NAVI_CTRL, new char(1), 1);
+  return createMessage('u', ADDRESS_NAVI_CTRL, new char(2), 1);
 }
 
 
