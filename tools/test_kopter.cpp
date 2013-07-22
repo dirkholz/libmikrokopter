@@ -1,4 +1,5 @@
 #include <mikrokopter/kopter.h>
+#include <mikrokopter/io/console.h>
 #include <mikrokopter/io/serial.h>
 #include <mikrokopter/common/time.h>
 
@@ -10,15 +11,15 @@ int main(int argc, char** argv)
     if (argc > 1)
       port = argv[1];
     std::cout << "Opening MikroKopter communication on port " << port << std::endl;
-    mikrokopter::io::IO::Ptr comm(new mikrokopter::io::Serial(port));
-    // mikrokopter::io::IO::Ptr comm(new mikrokopter::io::Console());
+    // mikrokopter::io::IO::Ptr comm(new mikrokopter::io::Serial(port));
+    mikrokopter::io::IO::Ptr comm(new mikrokopter::io::Console());
     mikrokopter::Kopter kopter(comm);
 
-    // comm->DEBUG_LEVEL = 1;
+    comm->DEBUG_LEVEL = 1;
     
     // kopter.connectNaviCtrl();
-    kopter.connectFlightCtrl();
-    // kopter.connectMK3MAG();
+    // kopter.connectFlightCtrl();
+    kopter.connectMK3MAG();
     // kopter.connectFlightCtrl();
 
     /*

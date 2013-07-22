@@ -2,7 +2,11 @@
 
 BUILDDIR = build_dir
 
-build:
+build: build-arch build-indep
+build-arch: build-stamp
+build-indep: build-stamp
+
+build-stamp:
 	mkdir $(BUILDDIR);
 	cd $(BUILDDIR); cmake -DCMAKE_INSTALL_PREFIX=../debian/tmp/usr ..
 	make -C $(BUILDDIR)
@@ -14,7 +18,7 @@ binary-indep:
 binary-arch:
 	cd $(BUILDDIR); cmake -P cmake_install.cmake
 	mkdir debian/tmp/DEBIAN
-	dpkg-gencontrol -pgreet-the-world
+	dpkg-gencontrol -plibmikrokopter
 	dpkg --build debian/tmp ..
 
 clean:

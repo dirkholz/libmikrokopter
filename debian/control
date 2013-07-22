@@ -2,8 +2,8 @@ Source: libmikrokopter
 Section: devel
 Priority: optional
 Maintainer: Dirk Holz <holz@ais.uni-bonn.de>
-Build-Depends: cmake, build-essential, libboost-dev
-Homepage: http://www.yourhomepage.org
+Build-Depends: cmake, libboost-system-dev, libboost-thread-dev
+Homepage: http://purl.org/holz
 
 Package: libmikrokopter
 Architecture: any
