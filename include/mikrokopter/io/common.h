@@ -52,7 +52,7 @@
           if (i < A.size())                                             \
             printf(" ");                                                \
         }                                                               \
-        printf("), %u bytes\n", A.size());                             \
+        std::cout << "), " << A.size() << " bytes." << std::endl;       \
   }
 
 namespace mikrokopter
