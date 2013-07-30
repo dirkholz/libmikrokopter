@@ -49,67 +49,67 @@ namespace mikrokopter
     
     class Serial : public mikrokopter::io::IO
     {
-     public:
+      public:
 
-      typedef boost::shared_ptr<Serial> Ptr;
+        typedef boost::shared_ptr<Serial> Ptr;
       
-      Serial(const std::string& port = "/dev/mikrokopter",
-             const int& baudrate = 57600);
+        Serial(const std::string& port = "/dev/mikrokopter",
+               const int& baudrate = 57600);
 
-      virtual ~Serial();
+        virtual ~Serial();
 
-      /**
-       * Connect to serial port(s)
-       * @param[in] port_tx Serial port to open for reading data
-       * @param[in] port_tx Serial port to open for writing data
-       * @param[in] Baudrate to use for communication
-       * @return true if serial port(s) was successfully opened, false otherwise.
-       */
-      bool connect(const std::string & port_rx, const std::string & port_tx, uint32_t baudrate);
+        /**
+         * Connect to serial port(s)
+         * @param[in] port_tx Serial port to open for reading data
+         * @param[in] port_tx Serial port to open for writing data
+         * @param[in] Baudrate to use for communication
+         * @return true if serial port(s) was successfully opened, false otherwise.
+         */
+        bool connect(const std::string & port_rx, const std::string & port_tx, uint32_t baudrate);
 
-      /** Close serial port conenction. */
-      void close();
+        /** Close serial port conenction. */
+        void close();
 
       
-      virtual int write(const std::string& s);
-      virtual int write(const char* message, int length);
-      virtual int read(char* buffer, int max_length);
-      virtual std::string read();
+        virtual int write(const std::string& s);
+        virtual int write(const char* message, int length);
+        virtual int read(char* buffer, int max_length);
+        virtual std::string read();
 
-     private:
+      private:
 
-      typedef boost::asio::serial_port SerialPort;
-      typedef boost::shared_ptr<SerialPort> SerialPortPtr;
-      SerialPortPtr port_rx_;
-      SerialPortPtr port_tx_;
-      std::string port_rx_name_;
-      std::string port_tx_name_;
-      boost::asio::io_service uart_service_;
-      boost::asio::streambuf stream_buffer_;
-      boost::asio::deadline_timer rx_timeout_;
-      int rx_timeout_deadline_;
-      std::string message_termination_character_;
-      bool connected_;
+        typedef boost::asio::serial_port SerialPort;
+        typedef boost::shared_ptr<SerialPort> SerialPortPtr;
+        SerialPortPtr port_rx_;
+        SerialPortPtr port_tx_;
+        std::string port_rx_name_;
+        std::string port_tx_name_;
+        boost::asio::io_service uart_service_;
+        boost::asio::streambuf stream_buffer_;
+        boost::asio::deadline_timer rx_timeout_;
+        int rx_timeout_deadline_;
+        std::string message_termination_character_;
+        bool connected_;
 
-      boost::thread uart_thread_[2];
+        boost::thread uart_thread_[2];
 
 
-      /** start asynchronous reading */
-      void startReadingRX();
+        /** start asynchronous reading */
+        void startReadingRX();
 
-      /** callback when data was read during asynchronous reading */
-      void callbackMessageRX(const boost::system::error_code& error, size_t bytes_transferred);
+        /** callback when data was read during asynchronous reading */
+        void callbackMessageRX(const boost::system::error_code& error, size_t bytes_transferred);
       
-      /** callback when timeout occured during asynchronous reading */
-      void callbackTimeoutRX(const boost::system::error_code & error);
+        /** callback when timeout occured during asynchronous reading */
+        void callbackTimeoutRX(const boost::system::error_code & error);
 
-      /**
-       * Open serial port connection
-       * @param[in] serial_port Internal communication port to use.
-       * @param[in] port Serial port to open
-       * @param[in] baudrate Baud rate ot use
-       */
-      bool connect(SerialPortPtr & serial_port, const std::string & port, uint32_t baudrate);
+        /**
+         * Open serial port connection
+         * @param[in] serial_port Internal communication port to use.
+         * @param[in] port Serial port to open
+         * @param[in] baudrate Baud rate ot use
+         */
+        bool connect(SerialPortPtr & serial_port, const std::string & port, uint32_t baudrate);
       
     };
 

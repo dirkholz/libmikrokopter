@@ -46,13 +46,13 @@ namespace mikrokopter
     class Console : public mikrokopter::io::IO
     {
       
-     public:
-      Console() {};
+      public:
+        Console() {};
 
-      int write(const std::string& message);
-      int write(const char* message, int length);
-      int read(char* buffer, int max_length);
-      virtual std::string read();
+        int write(const std::string& message);
+        int write(const char* message, int length);
+        int read(char* buffer, int max_length);
+        virtual std::string read();
     };
     
   }

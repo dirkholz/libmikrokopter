@@ -45,99 +45,99 @@ namespace mikrokopter
   {
     typedef boost::function<void(const mikrokopter::protocol::FlightControlDebugData&)> FlightControlDebugDataCallbackType;
     
-   public:
-    Kopter(mikrokopter::io::IO::Ptr& comm);
+    public:
+      Kopter(mikrokopter::io::IO::Ptr& comm);
     
-    bool connectNaviCtrl();    
+      bool connectNaviCtrl();    
     
-    bool connectFlightCtrl();
+      bool connectFlightCtrl();
     
-    bool connectMK3MAG();
+      bool connectMK3MAG();
     
-    void getVersionInfoBlocking();
+      void getVersionInfoBlocking();
     
-    void parseMessage(const std::string& message);
+      void parseMessage(const std::string& message);
     
-    inline mikrokopter::io::IO::Ptr getComm() { return comm_; }
+      inline mikrokopter::io::IO::Ptr getComm() { return comm_; }
     
-    void sendExternalControl(const mikrokopter::protocol::ExternControl& control);
+      void sendExternalControl(const mikrokopter::protocol::ExternControl& control);
     
-    /**
-     * request debug data from FlightCtrl
-     */
-    void requestDebugData(int interval);
+      /**
+       * request debug data from FlightCtrl
+       */
+      void requestDebugData(int interval);
 
-    void requestDebugDataLabel(const uint8_t& id);
+      void requestDebugDataLabel(const uint8_t& id);
 
-    /**
-     * request debug data from NaviCtrl
-     */
-    void requestNaviData(int interval);
+      /**
+       * request debug data from NaviCtrl
+       */
+      void requestNaviData(int interval);
     
-    void requestDebugDataLabels();
+      void requestDebugDataLabels();
 
-    inline void printFlightControlDebugData()
-    {
-      printFlightControlDebugData(flight_control_debug_data_,
-                                  flight_control_debug_data_labels_);
-    }
+      inline void printFlightControlDebugData()
+      {
+        printFlightControlDebugData(flight_control_debug_data_,
+                                    flight_control_debug_data_labels_);
+      }
 
-    inline mikrokopter::protocol::FlightControlDebugData getDebugData()
-    {
-      return flight_control_debug_data_;
-    }
+      inline mikrokopter::protocol::FlightControlDebugData getDebugData()
+      {
+        return flight_control_debug_data_;
+      }
     
-    void registerFlightControlCallback(FlightControlDebugDataCallbackType cb);
-
-    
-   protected:
-
-    mikrokopter::io::IO::Ptr comm_;
-    mikrokopter::protocol::VersionInfo version_info_;
-    int address_;
-    int debug_request_interval_;
-
-    FlightControlDebugDataCallbackType registered_flight_control_callback_;
-    mikrokopter::common::StopWatch timer_flight_control_debug_;
-    mikrokopter::common::RunningAverage<double, 3> interval_flight_control_debug_;
-    mikrokopter::common::StopWatch stopwatch_debug_request_;
-
-    mikrokopter::protocol::FlightControlDebugData flight_control_debug_data_;
-    mikrokopter::protocol::FlightControlDebugDataLabels flight_control_debug_data_labels_;
-
-    void processVersionInfo(const char& command,
-                            const int& address,
-                            const char* data,
-                            const int length);
-    void resetVersionInfo();
-    bool isValidVersionInfo();
+      void registerFlightControlCallback(FlightControlDebugDataCallbackType cb);
 
     
-    void processFlightControlDebugData(const char& command,
-                                       const int& address,
-                                       const char* data,
-                                       const int length);
-    void processFlightControlDebugDataLabels(const char& command,
-                                             const int& address,
-                                             const char* data,
-                                             const int length);
-    void printFlightControlDebugData(
-        const mikrokopter::protocol::FlightControlDebugData& debug_data,
-        const mikrokopter::protocol::FlightControlDebugDataLabels& debug_labels);
+    protected:
 
+      mikrokopter::io::IO::Ptr comm_;
+      mikrokopter::protocol::VersionInfo version_info_;
+      int address_;
+      int debug_request_interval_;
 
-    bool isValidDebugLabel(const std::string& label);
+      FlightControlDebugDataCallbackType registered_flight_control_callback_;
+      mikrokopter::common::StopWatch timer_flight_control_debug_;
+      mikrokopter::common::RunningAverage<double, 3> interval_flight_control_debug_;
+      mikrokopter::common::StopWatch stopwatch_debug_request_;
+
+      mikrokopter::protocol::FlightControlDebugData flight_control_debug_data_;
+      mikrokopter::protocol::FlightControlDebugDataLabels flight_control_debug_data_labels_;
+
+      void processVersionInfo(const char& command,
+                              const int& address,
+                              const char* data,
+                              const int length);
+      void resetVersionInfo();
+      bool isValidVersionInfo();
+
     
-    void resetDebugData();
+      void processFlightControlDebugData(const char& command,
+                                         const int& address,
+                                         const char* data,
+                                         const int length);
+      void processFlightControlDebugDataLabels(const char& command,
+                                               const int& address,
+                                               const char* data,
+                                               const int length);
+      void printFlightControlDebugData(
+                                       const mikrokopter::protocol::FlightControlDebugData& debug_data,
+                                       const mikrokopter::protocol::FlightControlDebugDataLabels& debug_labels);
 
-    void initialize();
+
+      bool isValidDebugLabel(const std::string& label);
+    
+      void resetDebugData();
+
+      void initialize();
 
 
-    void processNaviData(const char& command,
-                         const int& address,
-                         const char* data,
-                         const int length,
-                         mikrokopter::protocol::NaviData& navi_data);
+      void processNaviData(const char& command,
+                           const int& address,
+                           const char* data,
+                           const int length,
+                           mikrokopter::protocol::NaviData& navi_data);
     
     
   };

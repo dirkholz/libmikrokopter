@@ -45,72 +45,72 @@ namespace mikrokopter
     /** Abstract interface and base class for IO functionality */
     class IO
     {
-     public:
-      typedef boost::shared_ptr<mikrokopter::io::IO> Ptr;
-      typedef boost::shared_ptr<const mikrokopter::io::IO> ConstPtr;
-      typedef boost::function<void(const std::string&)> CallbackType;
+      public:
+        typedef boost::shared_ptr<mikrokopter::io::IO> Ptr;
+        typedef boost::shared_ptr<const mikrokopter::io::IO> ConstPtr;
+        typedef boost::function<void(const std::string&)> CallbackType;
 
-      /** Empty constructor */
-      IO()
+        /** Empty constructor */
+        IO()
           : DEBUG_LEVEL(0)
           , registerd_callback_(boost::bind(&mikrokopter::io::IO::defaultCallback, this, _1))
-      {};
+        {};
 
-      virtual ~IO(){}
+        virtual ~IO(){}
       
-      /**
-       * Output: write message
-       * @param[in] message Message to write
-       * @param[in] length Message length in characters
-       * @return number of bytes written (should be equal to message length!)
-       */
-      virtual int write(const char* message, int length) = 0;
+        /**
+         * Output: write message
+         * @param[in] message Message to write
+         * @param[in] length Message length in characters
+         * @return number of bytes written (should be equal to message length!)
+         */
+        virtual int write(const char* message, int length) = 0;
 
-      /**
-       * Output: write message
-       * @param[in] message Message to write
-       * @return number of bytes written (should be equal to message length!)
-       */
-      virtual int write(const std::string& message)
-      {
-        return write(message.data(), message.size());
-      }
+        /**
+         * Output: write message
+         * @param[in] message Message to write
+         * @return number of bytes written (should be equal to message length!)
+         */
+        virtual int write(const std::string& message)
+        {
+          return write(message.data(), message.size());
+        }
 
-      /**
-       * Input: read message
-       * @param[out] buffer to fill with read message
-       * @param[in] max_length Size of buffer (maximum number of characters to read)
-       * @return number of bytes read
-       */
-      virtual int read(char* buffer, int max_length) = 0;
+        /**
+         * Input: read message
+         * @param[out] buffer to fill with read message
+         * @param[in] max_length Size of buffer (maximum number of characters to read)
+         * @return number of bytes read
+         */
+        virtual int read(char* buffer, int max_length) = 0;
 
-      /**
-       * Input: Read message as string.
-       * @return Read string
-       */
-      virtual std::string read() = 0;
+        /**
+         * Input: Read message as string.
+         * @return Read string
+         */
+        virtual std::string read() = 0;
 
-      /**
-       * Register a callback for those IO classes that support asynchronous reading
-       * @param[in] cb Function to register
-       */
-      void registerCallback(CallbackType cb)
-      {
-        registerd_callback_ = cb;
-      }
+        /**
+         * Register a callback for those IO classes that support asynchronous reading
+         * @param[in] cb Function to register
+         */
+        void registerCallback(CallbackType cb)
+        {
+          registerd_callback_ = cb;
+        }
 
 
-      int DEBUG_LEVEL; // no debug output
+        int DEBUG_LEVEL; // no debug output
 
-     protected:
+      protected:
 
-      CallbackType registerd_callback_;
+        CallbackType registerd_callback_;
 
-      /** Default function used when no callback is registered */
-      virtual void defaultCallback(const std::string& s)
-      {
-        PRINT_MESSAGE(s);
-      }
+        /** Default function used when no callback is registered */
+        virtual void defaultCallback(const std::string& s)
+        {
+          PRINT_MESSAGE(s);
+        }
 
     };
     

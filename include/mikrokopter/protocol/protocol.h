@@ -57,15 +57,15 @@ namespace mikrokopter
 
     
     inline std::string createMessage(const char command,
-                              const int address)
+                                     const int address)
     {
       return createMessage(command, address, NULL, 0);
     }
 
     template <typename T>
     inline std::string createMessage(const char command,
-                              const int address,
-                              const T& data)
+                                     const int address,
+                                     const T& data)
     {
       return createMessage(command, address, reinterpret_cast<const char*>(&data), sizeof(data));
     }

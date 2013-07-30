@@ -38,21 +38,21 @@
 
 #define PRINT_VARIABLE(X) std::cout << #X << " : " << X << std::endl;
 
-#define PRINT_MESSAGE(A) if (A.size() > 0)                              \
-  {                                                                     \
-    std::cout                                                           \
-        << __PRETTY_FUNCTION__ << ": "                                  \
-        << #A                                                           \
-        << " = "                                                        \
-        << mikrokopter::io::removeCarriageReturns(A)                    \
-        << " (";                                                        \
-        for (size_t i = 0; i < A.size() + 2; ++i)                       \
-        {                                                               \
-          printf("%x", A.data()[i]);                                    \
-          if (i < A.size())                                             \
-            printf(" ");                                                \
-        }                                                               \
-        std::cout << "), " << A.size() << " bytes." << std::endl;       \
+#define PRINT_MESSAGE(A) if (A.size() > 0)        \
+  {                                               \
+    std::cout                                     \
+    << __PRETTY_FUNCTION__ << ": "                \
+    << #A                                         \
+    << " = "                                      \
+    << mikrokopter::io::removeCarriageReturns(A)  \
+    << " (";                                      \
+    for (size_t i = 0; i < A.size() + 2; ++i)     \
+    {                                             \
+      printf("%x", A.data()[i]);                  \
+      if (i < A.size())                           \
+        printf(" ");                              \
+    }                                             \
+    std::cout << "), " <<A.size() << " bytes\n";  \
   }
 
 namespace mikrokopter

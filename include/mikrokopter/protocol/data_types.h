@@ -63,12 +63,12 @@ namespace mikrokopter
     struct ExternControl // FLIGHT_CTRL
     {
       ExternControl()
-          : digital_0(0), digital_1(0)
-          , remote_buttons(0)
-          , pitch(0), roll(0), yaw(0)
-          , gas(0), height(0)
-          , free(0), request_acknowledgement(0)
-          , config(0){}
+        : digital_0(0), digital_1(0)
+        , remote_buttons(0)
+        , pitch(0), roll(0), yaw(0)
+        , gas(0), height(0)
+        , free(0), request_acknowledgement(0)
+        , config(0){}
       unsigned char digital_0;
       unsigned char digital_1;
       unsigned char remote_buttons;
@@ -104,13 +104,17 @@ namespace mikrokopter
           int16_t sensor_ok;               // DebugOut.Analog[10] = SenderOkay;
           int16_t backup_compass_deg;      // DebugOut.Analog[11] = ErsatzKompassInGrad;
           int16_t motor_set_points[4];     // DebugOut.Analog[12] [13] [14] [15] = Motor[0].SetPoint;
-          int16_t unused[4];                // !!! [16] [17] [18] [19] are commented out or not used at all in the FLightCtrl sources
+          int16_t stick_nick;              // !!! [16] [17] [18] [19] are commented out or not used at all in the original FLightCtrl sources
+          int16_t stick_roll;              // !!! [16] [17] [18] [19] are commented out or not used at all in the original FLightCtrl sources
+          int16_t stick_gier;              // !!! [16] [17] [18] [19] are commented out or not used at all in the original FLightCtrl sources
+          int16_t stick_gas;               // !!! [16] [17] [18] [19] are commented out or not used at all in the original FLightCtrl sources
           int16_t servo_nick;              // DebugOut.Analog[20] = ServoNickValue; 
           int16_t hover_gas;               // !!! [21] ./fc.c:1396: DebugOut.Analog[21] = HoverGas;
           int16_t current;                 // DebugOut.Analog[22] = Capacity.ActualCurrent;
           int16_t capacity_used;           // DebugOut.Analog[23] = Capacity.UsedCapacity;
           int16_t height_set_point;        // DebugOut.Analog[24] = SollHoehe/5;
-          int16_t another_unused[2];       // !!! [25] and [26] are not used at all (25), or commented out (26)
+          int16_t external_control;        // !!! [25] and [26] are not used at all (25), or commented out (26) in the original FLightCtrl sources
+          int16_t another_unused;          // !!! [25] and [26] are not used at all (25), or commented out (26) in the original FLightCtrl sources
           int16_t compass_set_point;       // DebugOut.Analog[27] = KompassSollWert;
           int16_t i2c_error;               // ./main.c:285: DebugOut.Analog[28]++; // I2C-Error
           int16_t capacity_min_of_max_pwm; // DebugOut.Analog[29] = Capacity.MinOfMaxPWM;
@@ -130,6 +134,7 @@ namespace mikrokopter
      */
     struct VersionInfo
     {
+      VersionInfo () : SWMajor (0), SWMinor (0), ProtoMajor (0), ProtoMinor (0), SWPatch (0) {}
       unsigned char SWMajor;
       unsigned char SWMinor;
       unsigned char ProtoMajor;
@@ -184,7 +189,7 @@ namespace mikrokopter
       uint8_t    OperatingRadius;			    // current operation radius around the Home Position in m
       int16_t    TopSpeed;					      // velocity in vertical direction in cm/s
       uint8_t    TargetHoldTime;				  // time in s to stay at the given target,
-                                          // counts down to 0 if target has been reached
+      // counts down to 0 if target has been reached
       uint8_t    FCStatusFlags2;				  // StatusFlags2 (since version 5 added)
       int16_t    SetpointAltitude;			  // setpoint for altitude
       uint8_t    Gas;						          // for future use
