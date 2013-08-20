@@ -243,13 +243,14 @@ void mikrokopter::Kopter::processVersionInfo(const char& command,
 
 void mikrokopter::Kopter::resetVersionInfo()
 {
-  version_info_.SWMajor = version_info_.SWMinor = version_info_.SWPatch = 0;
+  version_info_.SWMajor = version_info_.SWPatch = 0;
+  version_info_.SWMinor = 255;
 }
 
 
 bool mikrokopter::Kopter::isValidVersionInfo()
 {
-  return (version_info_.SWMinor != 0);
+  return (version_info_.SWMinor != 255);
 }
 
 

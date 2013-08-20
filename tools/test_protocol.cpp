@@ -39,7 +39,7 @@ int main(int argc, char** argv)
 {
   // mikrokopter::io::Console::Ptr comm(new mikrokopter::io::Console);
 
-  std::string port = "/dev/ttyUSB2";
+  std::string port = "/dev/ttyUSB0";
 
   mikrokopter::io::Serial::Ptr comm(new mikrokopter::io::Serial);
   bool connected = comm->connect(port, port, 57600);

@@ -134,7 +134,7 @@ namespace mikrokopter
      */
     struct VersionInfo
     {
-      VersionInfo () : SWMajor (0), SWMinor (0), ProtoMajor (0), ProtoMinor (0), SWPatch (0) {}
+      VersionInfo () : SWMajor (0), SWMinor (255), ProtoMajor (0), ProtoMinor (0), SWPatch (0) {}
       unsigned char SWMajor;
       unsigned char SWMinor;
       unsigned char ProtoMajor;
