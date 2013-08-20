@@ -72,7 +72,7 @@ int main(int argc, char** argv)
 
       const int debug_request_interval = 50;
       DO_EVERY(1, kopter.requestDebugData(debug_request_interval));
-      // DO_EVERY(1, kopter.requestNaviData(debug_request_interval));
+      DO_EVERY(1, kopter.requestNaviData(debug_request_interval));
 
       DO_EVERY(0.1, kopter.printFlightControlDebugData());
 
