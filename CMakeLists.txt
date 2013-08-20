@@ -3,8 +3,6 @@ project(libmikrokopter)
 
 set(CMAKE_BUILD_TYPE RelWithDebInfo)
 set(CMAKE_CXX_FLAGS "-pedantic -Wno-variadic-macros -Weffc++ -Wno-long-long")
-# set(CMAKE_CXX_FLAGS "-Wno-variadic-macros -Weffc++ -Wno-long-long")
-# set(CMAKE_CXX_FLAGS "-W -Wall -Wno-unused-parameter")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib) 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin) 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib) 
@@ -42,9 +40,6 @@ add_library(mikrokopter
   src/protocol/protocol.cpp
   src/kopter.cpp)
 target_link_libraries(mikrokopter ${Boost_LIBRARIES} pthread)
-
-add_executable(test_protocol tools/test_protocol.cpp)
-target_link_libraries(test_protocol mikrokopter)
 
 add_executable(test_kopter tools/test_kopter.cpp)
 target_link_libraries(test_kopter mikrokopter)
