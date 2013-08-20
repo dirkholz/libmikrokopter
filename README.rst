@@ -1,11 +1,21 @@
 libmikrokopter
 ==============
 
-libmikrokopter is a simple C++ library for communicating with MikroKopter micro aerial vehicles (quadcopters, hexacopters, and octocopters). It features: 
+libmikrokopter is a simple C++ library for communicating with MikroKopter_ micro aerial vehicles (quadcopters, hexacopters, and octocopters). It features: 
 
 - serial communication, 
 - the MikroKopter UART protocols for both NaviCtrl and FlightCtrl, and 
 - a simple command-line tool for displaying received debug output and sending an external control signal. 
+
+License
+^^^^^^^
+
+The library is provided under BSD license (see LICENSE.txt). For protocol details, please refer to `original license file`__ from MikroKopter_.
+
+.. _MikroKopter: http://www.mikrokopter.de/en/home
+.. _FCLICENSE: http://svn.mikrokopter.de/filedetails.php?repname=FlightCtrl&path=%2FLICENSE.TXT
+__ FCLICENSE_
+
 
 
 Get and build libmikrokopter
