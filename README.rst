@@ -1,28 +1,91 @@
-kopter: A C++ library for cummonicating with MikroKopter copters
-====================================================================
+libmikrokopter
+==============
 
-This library provides a simple library for communicating with Mikrokopter quadcopters, hexacopters, and octocopters. It features 
-* serial communication
-* the MikroKopter UART protocols for both NaviCtrl and FlightCtrl
-* a set of (command-line) tools 
+libmikrokopter is a simple C++ library for communicating with MikroKopter micro aerial vehicles (quadcopters, hexacopters, and octocopters). It features: 
+
+- serial communication, 
+- the MikroKopter UART protocols for both NaviCtrl and FlightCtrl, and 
+- a simple command-line tool for displaying received debug output and sending an external control signal. 
 
 
-Installation
-------------
+Get and build libmikrokopter
+============================
 
-Bacon ipsum dolor sit amet shankle ham hock meatloaf, pancetta bacon jerky filet mignon. Ribeye sausage pork loin pork biltong pancetta tenderloin short ribs. Shoulder frankfurter pancetta, short ribs ribeye strip steak ball tip brisket bacon meatball leberkas jerky. Leberkas filet mignon meatloaf pork, turkey beef ribs beef pork belly. Short loin pastrami pig, drumstick filet mignon fatback brisket ribeye frankfurter t-bone leberkas meatloaf capicola.
+source
+^^^^^^
 
-   #wget ...
-   mkdir -p build && cd build
+We use git for our source control. You can get the latest stable version of the library by doing the following::
+
+   git clone git://github.com/dirkholz/libmikrokopter.git
+
+dependencies
+^^^^^^^^^^^^
+libmikrokopter requires Boost for serial IO. On Ubuntu systems you can get the required libraries through apt::
+
+   sudo apt-get install libboost-system-dev libboost-thread-dev
+
+
+build and install
+^^^^^^^^^^^^^^^^^
+To build you should just follow a normal cmake recipe::
+   
+   cd libmikrokopter
+   mkdir -p build
+   cd build
    cmake ..
    make
    sudo make install
 
+uninstall
+^^^^^^^^^
+To uninstall resetusb simply run::
 
-Tools
------
+   cd resetusb/build
+   sudo make uninstall
 
-Pork belly turducken t-bone, strip steak shoulder chuck short ribs ribeye meatball chicken flank filet mignon salami leberkas sirloin. Meatball frankfurter jerky hamburger meatloaf, leberkas chuck ribeye cow tenderloin shankle. Drumstick flank shank turkey. Meatball cow tail t-bone tri-tip salami shankle capicola tenderloin pig. Short ribs drumstick sirloin pork belly boudin ribeye shankle t-bone cow flank pork loin turducken.
 
-Kielbasa venison flank short loin frankfurter pork pig biltong spare ribs ham tri-tip. Tri-tip fatback frankfurter meatball pork chop ham hock swine bacon strip steak ham turducken t-bone prosciutto pork. Short loin corned beef shank bresaola sirloin rump. Prosciutto leberkas t-bone, jerky pancetta drumstick chuck boudin shankle pork chop ham hock pork belly.
+Testing 
+--------
+
+In order to test the library and the connected MikroKopter simply run::
+
+    test_kopter
+
+The program outputs both the received debug values as well as a string description of the values (here a patched version of the firmware is used)::
+
+    void mikrokopter::Kopter::printFlightControlDebugData(const mikrokopter::protocol::FlightControlDebugData&, const string (&)[32])
+    Update Interval: 43ms.
+    AngleNick        = -42
+    AngleRoll        = -32
+    AccNick          = -21
+    AccRoll          = -44
+    YawGyro          = -23
+    Altitude [0.1m]  = 0
+    AccZ             = 685
+    Gas              = 412
+    Compass Value    = -1
+    Voltage [0.1V]   = 203
+    Receiver Level   = 0
+    Gyro Compass     = 0
+    AdWertRoll       = 1022
+    AdWertNick       = 1010
+    AdWertGier       = 1039
+    Motor 4          = 0
+    Stick Nick       = 0
+    Stick Roll       = 0
+    Stick Gier       = 0
+    Stick Gas        = 127
+    Servo            = 535
+    Hovergas         = 0
+    Current [0.1A]   = 5
+    Capacity [mAh]   = 317
+    Height Setpoint  = 0
+    External Control = 0
+    26               = 0
+    Compass Setpoint = -1
+    I2C-Error        = 0
+    BL Limit         = 250
+    GPS_Nick         = 0
+    GPS_Roll         = 0
+
 
