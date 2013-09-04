@@ -1,0 +1,92 @@
+Index: analog.c
+===================================================================
+300a301
+>             DebugOut.Analog[14] = AdWertGier; // MOD: send yaw
+315a317
+>             DebugOut.Analog[13] = AdWertNick;  // MOD: send pitch
+324a327
+>             DebugOut.Analog[12] = AdWertRoll; // MOD: send roll
+Index: fc.c
+===================================================================
+99a100
+> int DebugStickNick = 0, DebugStickRoll = 0; // MOD: added for holding stick commands
+202,204c203,205
+<     DebugOut.Analog[12] = Motor[0].SetPoint;
+<     DebugOut.Analog[13] = Motor[1].SetPoint;
+<     DebugOut.Analog[14] = Motor[2].SetPoint;
+---
+>     /* DebugOut.Analog[12] = Motor[0].SetPoint; */
+>     /* DebugOut.Analog[13] = Motor[1].SetPoint; */
+>     /* DebugOut.Analog[14] = Motor[2].SetPoint; */
+205a207,213
+> 
+>     // MOD: added sick comamnds
+>     DebugOut.Analog[16] = DebugStickNick;//((FromNC_Rotate_C * StickNick) - (FromNC_Rotate_S * StickRoll)) / 8;
+>     DebugOut.Analog[17] = DebugStickRoll;//((FromNC_Rotate_C * StickRoll) + (FromNC_Rotate_S * StickNick)) / 8;
+>     DebugOut.Analog[18] = StickGier;
+>     DebugOut.Analog[19] = StickGas;
+> 
+210a219,227
+> 
+>     // MOD: added flag whether or not external control is on!
+>     DebugOut.Analog[25] = ( Parameter_ExternalControl > 128 ) ? 1 : 0;
+>     for( unsigned int i = 0; i < 9; i++ ) {
+>       unsigned int bitmask = 1 << (i + 1);
+>       if( Poti[i] > 128 )
+>         DebugOut.Analog[25] |= bitmask;
+>     }
+> 
+216,220c233,237
+< //DebugOut.Analog[16] = Variance;
+< //DebugOut.Analog[17] = VarioMeter;
+< //DebugOut.Analog[18] = HoehenWertF;		
+< //DebugOut.Analog[25] = Parameter_Hoehe_P;
+< //DebugOut.Analog[26] = Parameter_Luftdruck_D;
+---
+>     //DebugOut.Analog[16] = Variance;
+>     //DebugOut.Analog[17] = VarioMeter;
+>     //DebugOut.Analog[18] = HoehenWertF;		
+>     //DebugOut.Analog[25] = Parameter_Hoehe_P;
+>     //DebugOut.Analog[26] = Parameter_Luftdruck_D;
+1103a1121,1122
+>     DebugStickNick = stick_nick; // MOD: store stick orientation for debug output
+>     DebugStickRoll = stick_roll; // MOD: store stick orientation for debug output
+1143a1163,1172
+>       // MOD: rotate external control input to kopter control frame
+>       FromNC_Rotate_C = sintab[EE_Parameter.OrientationAngle + 6];
+>       FromNC_Rotate_S = sintab[EE_Parameter.OrientationAngle];
+>       int ExternNick = (int) ExternControl.Nick * (int) EE_Parameter.Stick_P;
+>       int ExternRoll = (int) ExternControl.Roll * (int) EE_Parameter.Stick_P;
+>       DebugStickNick += ExternNick;
+>       DebugStickRoll += ExternRoll;
+>       StickNick += ((FromNC_Rotate_C * ExternNick) + (FromNC_Rotate_S * ExternRoll)) / 8;
+>       StickRoll += ((FromNC_Rotate_C * ExternRoll) - (FromNC_Rotate_S * ExternNick)) / 8;
+>       /* // MOD: rotate external control command (just like stick commands which are already rotated)
+1145a1175
+>       */ // MOD: rotate external control command (just like stick commands which are already rotated)
+Index: main.h
+===================================================================
+Index: uart.c
+===================================================================
+127,129c127,129
+<     "Motor 1         ",
+<     "Motor 2         ",
+<     "Motor 3         ",
+---
+>     "AdWertRoll      ",
+>     "AdWertNick      ",
+>     "AdWertGier      ",
+131,134c131,134
+<     "16              ",
+<     "17              ",
+<     "18              ",
+<     "19              ",
+---
+>     "Stick Nick      ",
+>     "Stick Roll      ",
+>     "Stick Gier      ",
+>     "Stick Gas       ",
+140c140
+<     "25              ", //25
+---
+>     "External Control", //25
